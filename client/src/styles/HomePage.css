@@ -1,0 +1,63 @@
+:root {
+  --primary: #00A3A3;
+  --accent: #FFB661;
+  --bg-light: #F8F9FA;
+  --text-dark: #2C3E50;
+  --text-gray: #7F8C8D;
+
+  --font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-dark);
+}
+.site-header {
+  color: #7F8C8D;
+  font-family: var(--font-family);
+  font-size: 1.5rem;
+  padding: 1rem 6rem;
+}
+.site-header h1 {
+  padding-left: 5.5rem;
+  font-weight: 750;
+}
+
+.hero{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-family);
+    background-color: #f4f4f4;
+    min-height: 90vh;
+    overflow: hidden;
+}
+.floating-icon {
+  position: absolute;
+  opacity: 0.5;
+  animation: float 10s infinite linear;
+}
+
+.floating-icon img {
+  width: 80px;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+.hero h2{
+    font-weight: 800;
+    color: var(--text-dark);
+    font-size: 5rem;
+}
+.tagline p{
+    font-weight: 800;
+    color: var(--text-gray);
+    font-size: 3rem;
+    font-weight: 600;
+}
