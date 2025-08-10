@@ -1,0 +1,17 @@
+# Node.js
+node_modules/
+
+# Logs
+npm-debug.log
+yarn-debug.log
+
+# Environment variables
+.env
+.env.local
+
+# Build files
+/client/dist/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
