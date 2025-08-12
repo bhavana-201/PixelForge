@@ -1,48 +1,79 @@
 :root {
-  --primary: #00A3A3;
-  --accent: #FFB661;
-  --bg-light: #F8F9FA;
-  --text-dark: #2C3E50;
-  --text-gray: #7F8C8D;
+  --primary: #008080; /* Muted Teal */
+  --primary-dark: #005f5f; /* Darker teal for hover states */
+  --accent: #FF7043; /* Vibrant Orange */
+  --bg-light: #F0F2F5; /* Soft Gray */
+  --text-dark: #1A1A1A; /* Charcoal Black */
+  --text-gray: #404040; /* Dark Gray */
+  --error-color: #C0392B; /* Deep Red */
+
+  --focus-shadow: 0 0 0 3px rgba(0, 128, 128, 0.25);
+  --container-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  --button-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   --font-family: 'Montserrat', sans-serif;
+  --transition-speed: 0.3s ease-in-out;
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  background: var(--bg-light);
-  color: var(--text-dark);
-}
-.site-header {
-  color: #7F8C8D;
   font-family: var(--font-family);
-  font-size: 1.5rem;
-  padding: 1rem 6rem;
-}
-.site-header h1 {
-  padding-left: 5.5rem;
-  font-weight: 750;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-light);
+  overflow-x: hidden; 
 }
 
-.hero{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: var(--font-family);
-    background-color: #f4f4f4;
-    min-height: 90vh;
-    overflow: hidden;
+.site-header {
+  color: var(--text-dark);
+  font-family: var(--font-family);
+  font-size: 1rem;
+  padding: 1rem 10rem; 
+  box-sizing: border-box;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.site-header h1 {
+  padding-left: 0; 
+  font-weight: 750;
+  margin: 0;
+}
+/* hero section */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  color: white;
+}
+
+.hero h2 {
+  font-weight: 800;
+  font-size: 4rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 0;
 }
 .floating-icon {
   position: absolute;
   opacity: 0.5;
-  animation: float 10s infinite linear;
+  animation: float 10s infinite ease-in-out;
+  z-index: 0;
 }
 
 .floating-icon img {
   width: 80px;
+  height: auto;
 }
 
 @keyframes float {
@@ -50,14 +81,92 @@ body {
   50% { transform: translateY(-20px) rotate(10deg); }
   100% { transform: translateY(0) rotate(0deg); }
 }
-.hero h2{
-    font-weight: 800;
-    color: var(--text-dark);
-    font-size: 5rem;
+
+
+.tagline p {
+  font-weight: 500;
+  font-size: 1.8rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0.9;
 }
-.tagline p{
-    font-weight: 800;
-    color: var(--text-gray);
+
+.content-section {
+  padding: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* Button Styling */
+.buttons-section {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.buttons-section button {
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  border: none;
+  background: var(--accent);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: var(--button-shadow);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.buttons-section button:hover {
+  background: #ff5f2b;
+  transform: translateY(-2px);
+}
+
+.tabs-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: var(--container-shadow);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero h2 {
     font-size: 3rem;
-    font-weight: 600;
+  }
+  
+  .tagline p {
+    font-size: 1.5rem;
+  }
+  
+  .site-header {
+    padding: 1rem;
+  }
+  
+  .site-header h1 {
+    padding-left: 0;
+    text-align: center;
+  }
+  
+  .buttons-section {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .floating-icon img {
+    width: 50px;
+  }
+}
+
+.site-footer {
+  background-color: var(--text-dark);
+  color: var(--bg-light);
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  position: relative;
+  bottom: 0;
 }
