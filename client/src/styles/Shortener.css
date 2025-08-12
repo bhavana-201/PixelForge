@@ -1,4 +1,4 @@
-.url-section {
+.main-section {
   max-width: 450px; 
   width: 100%; /* Ensure it's responsive */
   padding: 30px;
@@ -141,4 +141,22 @@
 .short-url a:focus {
   text-decoration: underline;
   color: var(--accent);
+}
+
+/* for Qr generatoe section */
+.qr-generator{
+  display: flex;
+  justify-content: space-around;
+  
+}
+#contentType{
+  width: 100%;
+ 
+  height: 2rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  border: 1px solid #dcdfe3;
+  padding: 0.5rem;
+  text-align: center;  
 }

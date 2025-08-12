@@ -58,7 +58,7 @@ const ShortenerPage = () => {
 
   return (
     <> 
-        <section className="url-section">
+        <section className="main-section">
           <form onSubmit={handleSubmit}>
             <div className="input-section">
               <label htmlFor="urlInput">Enter Long URL:</label>
@@ -78,7 +78,6 @@ const ShortenerPage = () => {
                 value={customUrl}
                 onChange={(e) => setCustomUrl(e.target.value)}
               />
-
               <button type="submit" className="btn submit-btn">
                 Shorten URL
               </button>
