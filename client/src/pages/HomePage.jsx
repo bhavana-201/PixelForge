@@ -6,6 +6,7 @@ import barcodeIcon from "../assets/bl-barcode.svg";
 import blueUrl from "../assets/blue-url.svg";
 import ShortenerPage from "./ShortenerPage";
 import QRGenerator from "./QRGenerator";
+import BarGenerator from "./BarGenerator";
 
 const floatingIcons = [
   { src: blueQR, alt: "QR Code icon", top: "15%", left: "25%" },
@@ -68,12 +69,7 @@ const HomePage = () => {
           <article className="tabs-section">
             {activeTab === "url" && <ShortenerPage/>}
             {activeTab === "qr" && <QRGenerator/>}
-            {activeTab === "bar" && (
-              <section className="BarCode-section">
-                <h3>BARCODE</h3>
-                <p>Generate Barcodes</p>
-              </section>
-            )}
+            {activeTab === "bar" && <BarGenerator/>}
           </article>
         </section>
       </main>

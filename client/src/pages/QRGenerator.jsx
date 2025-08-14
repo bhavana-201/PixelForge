@@ -53,7 +53,6 @@ const QRGenerator = () => {
                     <button type="button"  className="btn action-btn">
                       Content
                     </button>
-                    
                     <button type="button"  className="btn action-btn">
                       Customize
                     </button>
