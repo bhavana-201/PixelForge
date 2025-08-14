@@ -1,6 +1,7 @@
-import {React, useState, useEffect, useMemo} from "react";
+import {React, useState} from "react";
+import Barcode from "react-barcode";
 import "../styles/Shortener.css";
-import JSBarCode from "jsbarcode";
+
 
 const BarGenerator = () => {
   const [error, setError] = useState("");
@@ -8,62 +9,38 @@ const BarGenerator = () => {
   const [userInput, setUserInput] = useState("");
   const [barCodeData, setBarCodeData] = useState("");
 
-  const regexRules = useMemo(() => ({
+  const regexRules ={
   code128: /^[\x20-\x7E]+$/,       // All printable ASCII
   code39: /^[0-9A-Z. $/+%-]+$/,
   ean13: /^\d{12}$/,               // First 12 digits, checksum later
   upca: /^\d{11}$/,                // First 11 digits, checksum later
   itf: /^\d{2,}$/                  // Pairs of digits
-  }), [])
+  };
 
 
   // Function to handle bar code generation
   const handleBarCode = (e) => {
     e.preventDefault();
     setError("");
+    const userData = userInput.trim();
     if(userInput.trim() === "") {
       setError("Please enter some content for the bar code");
       return;
     }
-    else{
-      const userData = userInput.trim();
-      if(!(regexRules[format].test(userData) )) {
+    if(!(regexRules[format].test(userData) )) {
         setError(`Invalid content for ${format} format. Please follow the rules.`);
         setBarCodeData("");
         return;
-      }
-      else{
-        setBarCodeData(userData);
-        setError("");
-      }
     }
-  }
-    
-  useEffect(() => {
-    if (!barCodeData) return;
-
-    const checks = {
-      itf: (data) => data.length % 2 === 0, // ITF requires even number of digits
-      ean13: (data) => data.length === 12, // EAN-13 requires 12 digits before checksum
-      upca: (data) => data.length === 11, // UPC-A requires 11 digits before checksum
-    };
-    const isValid = regexRules[format].test(barCodeData) && (checks[format] ? checks[format](barCodeData) : true);
-            
-    if(isValid){
-      try{
-        JSBarCode("#barcode", barCodeData, {
-          format: format,
-          displayValue: true,
-      });
-    }catch (error) {
-        console.error("Error generating bar code:", error);
-        setError("Failed to generate bar code. Please try again.");
-      }
-    } else {
-      setError(`Invalid content for ${format} format. Please follow the rules.`);
+    if (format === "itf" && userData.length % 2 !== 0) {
+      setError("ITF format requires an even number of digits.");
       setBarCodeData("");
-    } 
-  }, [barCodeData,regexRules, format]);
+      return;
+    }
+
+    setBarCodeData(userData);
+  };
+  
   return (
     <div className="qr-generator">
       <div className="main-section">
@@ -98,7 +75,9 @@ const BarGenerator = () => {
       </div>
       <div className="main-section">
         <div className="output-display" style={{ display: "flex", justifyContent: "center", alignItems: "center",height: "100%" }}>
-         <svg id="barcode"></svg>
+        { barCodeData && 
+          <Barcode value={barCodeData} format={format.toUpperCase()} />
+}
         </div>
                 
       </div>
