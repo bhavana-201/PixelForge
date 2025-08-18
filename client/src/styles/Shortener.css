@@ -109,6 +109,24 @@
   color: white;
 }
 
+.btn.custom-btn {
+  width: 5rem;
+  height: 2.5rem;
+  border: none;
+  outline: none;
+  background-color: white;
+  font-family: var(--font-family);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.btn.custom-btn:hover {
+  background-color: rgba(0, 128, 128, 20%);
+  color: var(--primary-dark);
+  border-radius: 15px;
+
+
+}
 .error-message {
   color: var(--error-color);
   font-weight: 600;
@@ -165,3 +183,23 @@
   margin: 1rem;
   padding-left: 1rem;
 }
+/* qr style section */
+#qr-style{
+  display: flex;
+  border: 1px solid var(--primary-dark);
+  border-radius: 10px;
+  box-shadow: var(--container-shadow);
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0.8rem;
+}
+.custom-btn {
+ 
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  
+  transition: transform 0.2s ease-in-out;
+}
+
