@@ -1,11 +1,16 @@
-import {React, useState} from "react";
+import {React, useEffect, useRef, useState} from "react";
 import '../styles/Shortener.css';
 import '../styles/qrgen.css'
-import {QRCodeCanvas} from "qrcode.react";
+import QRCodeStyling from "qr-code-styling";
 import StepperStyle from '../components/StepperStyle';
 import sharp from '../assets/sharp.svg'
 import round from '../assets/round.svg'
 import dot from '../assets/dot.svg'
+import squareBorder from '../assets/squareBorder.png'
+import dotBorder from '../assets/dotBorder.png'
+import xround from '../assets/XroundBorder.png'
+import roundCenter from '../assets/roundCenter.svg'
+import squareCenter from '../assets/squareCenter.svg'
 const QRGenerator = () => {
   const [qrContentType, setQrContentType] = useState("url");
   const [userInput, setUserInput] = useState("");
@@ -20,10 +25,42 @@ const QRGenerator = () => {
   const [style, setStyle] = useState("sharp");
   const [bgColor, setBgColor] = useState('#ffffff');
   const [fgColor, setFgColor] = useState('#000000'); 
-
+  const [corner, setCorner] = useState('square');
+  const [cornerDot, setCornerDot] = useState('square');
+  const [level, setLevel] = useState('Q');
   
+  const ref = useRef(null);
   //funtion to handle QR code generation
-  const handleQrCode = (e) => {
+  useEffect(() => {
+   const qrCode = new QRCodeStyling({
+      width: 400,
+      height:400,
+      data: qrcodeData,
+      dotsOptions : {
+        type: style,
+        color: fgColor
+      },
+      backgroundOptions :{
+        color: bgColor,
+      },
+      cornersSquareOptions:{
+        type : corner,
+        color : '#000000'
+      },
+      cornersDotOptions:{
+        type: cornerDot,
+        color: '#000000'
+      },
+      qrOptions:{
+        errorCorrectionLevel : level
+      }
+    });
+    if (ref.current) {
+      ref.current.innerHTML = ""; 
+      qrCode.append(ref.current);
+    }
+  }, [qrcodeData, style, fgColor, bgColor, corner, cornerDot, level]); 
+    const handleQrCode = (e) => {
     e.preventDefault();
     setError("");
     if(qrContentType === "url"){
@@ -56,7 +93,9 @@ const QRGenerator = () => {
       setQrCodeData(wifiData);
 
     }
+   
 };
+
   return (
     <div className="qr-generator">
       <div className="main-section">
@@ -70,7 +109,7 @@ const QRGenerator = () => {
                     
           </div>
           { featureBtns === 'content'? 
-             <form className="input-section" onSubmit={handleQrCode}>
+            <form className="input-section">
               <label htmlFor="contentInput" style={{paddingTop:"2rem"}}>Select Content Type:</label>
                 <select id="selectType" onChange={(e) => setQrContentType(e.target.value)} value={qrContentType} >
                             <option value="url">url</option>
@@ -112,16 +151,17 @@ const QRGenerator = () => {
                     </div>
                   )}
                 
-            </form> : <div> 
+            </form> : 
+            <div> 
               {/* users is in customize section so we display stepper style */}
               <StepperStyle qrCustom={qrCustom} setQrCustom={setQrCustom} labels={['Style', 'Border', 'Level']}/> 
               { qrCustom === 'Style' && (
                 <div className="custom-section" style={{ margin:"1rem"}}>
-                  <label style={{paddingTop:"1.5rem"}}>Style</label>
+                  <label id="style-label">Style</label>
                   <div id="qr-style" >
-                    <button className="custom-btn" onClick={() => setStyle('sharp')}><img src= {sharp} alt="Sharp QR code style"/></button>
-                    <button className="custom-btn" onClick={() => setStyle('round')}><img src={round} alt="Rounded QR code style"/></button>
-                    <button className="custom-btn" onClick={() => setStyle('dot')}><img src={dot} alt="Dotted QR code style"/></button>
+                    <button className="custom-btn" onClick={() => setStyle('square')}><img src= {sharp} alt="Sharp QR code style"/></button>
+                    <button className="custom-btn" onClick={() => setStyle('rounded')}><img src={round} alt="Rounded QR code style"/></button>
+                    <button className="custom-btn" onClick={() => setStyle('dots')}><img src={dot} alt="Dotted QR code style"/></button>
                   </div>
                   <label style={{paddingTop:"1.5rem"}}>Color</label>
                   <div id="qr-style">
@@ -138,24 +178,48 @@ const QRGenerator = () => {
                   </div>
                 </div>
               )}
-              </div>}
-          <button type="submit" className="btn submit-btn">Generate QR Code</button>
+              { qrCustom === 'Border' && (
+                <div className="custom-section" style={{ margin:"1rem"}}>
+                  <label id="style-label">Border</label>
+                  <div id="qr-style" >
+                    {/* img btn options for 3 borders */}
+                    <button className="custom-btn" onClick={() => setCorner('square')}><img src={squareBorder} alt="Square QR code style"/></button>
+                    <button className="custom-btn" onClick={() => setCorner('dot')}><img src={dotBorder} alt="Dotted QR code style"/></button>
+                    <button className="custom-btn" onClick={() => setCorner('extra-rounded')}><img src={xround} alt="Extra-Rounded QR code style"/></button>
+                  </div>
+                  <label style={{paddingTop:"1.5rem"}}>Center</label>
+                  <div id="qr-style">
+                    <button className="custom-btn" onClick={() => setCornerDot('square')}><img src={squareCenter} alt="Square Center"/></button>
+                    <button className="custom-btn" onClick={() => setCornerDot('dot')}><img src={roundCenter} alt="Round Center"/></button>   
+                  </div>
+                </div>
+                
+              )}
+              { qrCustom === 'Level' &&(
+                <div className="custom-section" style={{ margin:"1rem"}}>
+                  <label id="style-label">Error Correction Level</label>
+                  <p style={{color:"#4f4d4dff", margin:"0", paddingBottom:"1rem", fontSize:"14px"}}>By changing the error correction level, you can simplify or complicate the QR code pattern</p>
+                  <div id="qr-style" >
+                    {/* 4 img btn options for error correction level L M Q H*/}
+                    <button className="level-btn" onClick={() => setLevel('L')}>Low</button>
+                    <button className="level-btn" onClick={() => setLevel('M')}>Medium</button>
+                    <button className="level-btn" onClick={() => setLevel('Q')}>Quartile</button>
+                    <button className="level-btn" onClick={() => setLevel('H')}>High</button>
+                  </div>
+                </div>
+              )}
+            </div>}
+          <button type="button" onClick={handleQrCode} className="btn submit-btn">Generate QR Code</button>
           {error && <p className="error-message">{error}</p>}
 
       </div>
       <div className="main-section">
-        <div className="qr-display" style={{ display: "flex", justifyContent: "center", alignItems: "center",height: "100%" }}>
-          {qrcodeData && (
-              <QRCodeCanvas
-                value={qrcodeData} 
-                size={300}
-              />
-          )}
+        <div ref={ref} className="qr-display" style={{ display: "flex", justifyContent: "center", alignItems: "center",height: "100%" }}>
           <button type="button" className="btn action-btn" onClick={() => setFeatureBtns('download')}>
             Download
             {/* add dropdown icon to let the uesr select dload type */}
         </button>
-              
+
         </div>
         
           
@@ -165,3 +229,7 @@ const QRGenerator = () => {
 };
 
 export default QRGenerator;
+
+
+
+

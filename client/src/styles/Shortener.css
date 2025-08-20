@@ -124,8 +124,6 @@
   background-color: rgba(0, 128, 128, 20%);
   color: var(--primary-dark);
   border-radius: 15px;
-
-
 }
 .error-message {
   color: var(--error-color);
@@ -200,6 +198,6 @@
   padding: 0;
   cursor: pointer;
   
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.1s ease-in-out;
 }
 

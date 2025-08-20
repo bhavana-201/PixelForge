@@ -7,7 +7,7 @@
 }
 /* Hover effect for the buttons */
 .custom-btn:hover {
-  transform: scale(1.4);
+  transform: scale(1.2);
 }
 
 .custom-btn.active img {
@@ -18,7 +18,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.4rem; /* space between items */
   padding: 0.5rem;
 }
 
@@ -35,6 +34,7 @@
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
+
 }
 .custom-section label {
   /* Label should fill the width of its container */
@@ -46,4 +46,25 @@
   color: var(--text-dark);
   font-size: 1rem;
   box-sizing: border-box;
+}
+#style-label{
+  padding-top: 1.5rem;
+}
+
+/* border style */
+/* center style */
+/* colors */
+.level-btn{
+  font-family: var(--font-family);
+  font-weight: bold;
+  border: none;
+  outline: none;
+  background-color: white;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out; 
+}
+
+.level-btn:hover{
+  color: var(--primary-dark);
+  transform: scale(1.2);
 }
