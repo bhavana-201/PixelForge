@@ -159,8 +159,8 @@
   color: var(--accent);
 }
 
-/* for Qr generatoe section */
-.qr-generator{
+/* for Qr generator section */
+.qr-generator, .bar-generator{
   display: flex;
   justify-content: space-around;
   

@@ -218,8 +218,7 @@ const QRGenerator = () => {
           <button type="button" className="btn action-btn" onClick={() => setFeatureBtns('download')}>
             Download
             {/* add dropdown icon to let the uesr select dload type */}
-        </button>
-
+          </button>
         </div>
         
           
